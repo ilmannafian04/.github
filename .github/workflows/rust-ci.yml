@@ -4,7 +4,7 @@ on:
       dir:
         description: cargo working directory
         required: false
-        default: .
+        default: Cargo.toml
         type: string
 
 jobs:
