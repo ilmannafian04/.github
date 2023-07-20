@@ -19,6 +19,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+      - name: Parse semver string
+        id: semver_parser
+        uses: booxmedialtd/ws-action-parse-semver@v1.4.7
+        with:
+          input_string: ${{ github.ref }}
+          version_extractor_regex: '\/v(.*)$'
       - name: install nomad
         uses: lucasmelin/setup-nomad@v0.1.0
         with:
@@ -26,4 +32,4 @@ jobs:
       - name: write variables into a file
         run: cat ${{ secrets.variables }} > ./variables.hcl
       - name: run job
-        run: nomad job run -address ${{ inputs.address }} -token ${{ secrets.token }} -var-file ./variables.hcl ${{ inputs.job-file }}
+        run: nomad job run -address ${{ inputs.address }} -token ${{ secrets.token }} -var-file ./variables.hcl -var version=${{ steps.semver_parser.outputs.fullversion }} ${{ inputs.job-file }}
