@@ -30,6 +30,6 @@ jobs:
         with:
             version: "1.6.0"
       - name: write variables into a file
-        run: cat '${{ secrets.variables }}' > ./variables.hcl
+        run: echo '${{ secrets.variables }}' > ./variables.hcl
       - name: run job
         run: nomad job run -address ${{ inputs.address }} -token ${{ secrets.token }} -var-file ./variables.hcl -var version=${{ steps.semver_parser.outputs.fullversion }} ${{ inputs.job-file }}
