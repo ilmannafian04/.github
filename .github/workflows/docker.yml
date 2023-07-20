@@ -31,7 +31,7 @@ jobs:
           password: ${{ secrets.docker-hub-access-token }}
       - name: Parse semver string
         id: semver_parser
-        uses: booxmedialtd/ws-action-parse-semver@v1
+        uses: booxmedialtd/ws-action-parse-semver@v1.4.7
         with:
           input_string: ${{ github.ref }}
           version_extractor_regex: '\/v(.*)$'
